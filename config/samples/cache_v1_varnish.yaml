@@ -4,6 +4,7 @@ apiVersion: cache.example.com/v1
 kind: Varnish
 metadata:
   name: varnish-sample
+  namespace: varnish-operator-ansible-system
 spec:
   size: 3
   purging_enabled: true
