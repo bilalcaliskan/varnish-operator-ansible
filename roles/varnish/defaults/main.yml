@@ -1,0 +1,65 @@
+---
+
+install_varnish: true
+purging_enabled: true
+banning_enabled: true
+
+# check https://hub.docker.com/_/varnish?tab=tags&page=1&ordering=last_updated for more
+version: 6.5
+port: 6081
+
+# Locked shared memory - should suffice to lock the shared memory log
+# (varnishd -l argument)
+# Default log size is 80MB vsl + 1M vsm + header -> 82MB
+# unit is bytes
+limit_memlock: 85983232
+# Maximum size of the corefile.
+limit_core: infinity
+# Number of open file descriptor limit
+limit_nofile: 131072
+
+# available storage backends = default(is an alias to umem, where available, or malloc otherwise), malloc, umem, file, deprecated_persistent
+storage_backend: malloc
+storage_backend_size: 256m
+
+global_ttl: 5m
+# https://varnish-cache.org/docs/trunk/users-guide/vcl-grace.html
+global_grace: 30m
+
+# http://rocketmodule.com/blog/example-varnish-vcl-drupal-pressflow-site/index.html
+backends:
+  - name: default
+    host: 127.0.0.1
+    port: 8080
+    max_connections: 800
+    first_byte_timeout: 600s
+    connect_timeout: 600s
+    between_bytes_timeout: 600s
+    probe_enabled: true
+    probe:
+      url: "/"
+      timeout: 5s
+      interval: 30s
+      window: 5
+      threshold: 3
+    requests:
+      - url: "/"
+        ttl: 1m
+        grace: 10m
+        keep: 20m
+  - name: default2
+    host: 127.0.0.1
+    port: 8081
+    max_connections: 800
+    first_byte_timeout: 600s
+    connect_timeout: 600s
+    between_bytes_timeout: 600s
+    probe_enabled: true
+    probe:
+      url: "/"
+      timeout: 5s
+      interval: 30s
+      window: 5
+      threshold: 3
+    requests:
+      - url: "/"

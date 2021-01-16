@@ -1,0 +1,8 @@
+domain: example.com
+layout: ansible.sdk.operatorframework.io/v1
+projectName: varnish-operator-ansible
+resources:
+- group: cache
+  kind: Varnish
+  version: v1
+version: 3-alpha
