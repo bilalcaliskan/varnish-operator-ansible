@@ -26,17 +26,10 @@
           spec:
             containers:
             - name: varnish
-              command:
-              - /usr/sbin/varnishd
-              - -a :{{ port }}
-              - -a localhost:8443,PROXY
-              - -p feature=+http2
-              - -f /etc/varnish/default.vcl
-              - -s {{ storage_backend }},{{ storage_backend_size }}
               image: "docker.io/varnish:{{ version }}"
               volumeMounts:
               - name: config-volume
-                mountPath: /etc/varnish/default.vcl
+                mountPath: /etc/varnish
               ports:
                 - containerPort: 6081
             volumes:
@@ -44,7 +37,7 @@
               configMap:
                 name: varnish-vcl
 
-- name: Ensure Varnish service "{{ state }}"
+- name: Ensure Varnish service {{ state }}
   community.kubernetes.k8s:
     state: "{{ state }}"
     definition:

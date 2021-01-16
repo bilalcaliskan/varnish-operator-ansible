@@ -5,6 +5,7 @@
   roles:
     - varnish
   vars:
-    state: absent
+    state: present
     ansible_operator_meta:
       namespace: varnish-operator-ansible-system
+      name: varnish-samples

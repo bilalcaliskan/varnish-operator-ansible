@@ -1,6 +1,8 @@
 ---
 
 state: present
+size: 3
+
 purging_enabled: true
 banning_enabled: true
 
