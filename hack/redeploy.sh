@@ -7,5 +7,5 @@ make install
 export IMG=bilalcaliskan/varnish-operator-ansible:$TAG
 make deploy
 
-kubectl delete varnishes.cache.example.com varnish-sample
+kubectl delete -f config/samples/cache_v1_varnish.yaml
 kubectl create -f config/samples/cache_v1_varnish.yaml

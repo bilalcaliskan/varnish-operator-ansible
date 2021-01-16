@@ -5,4 +5,4 @@ kind: Kustomization
 images:
 - name: controller
   newName: bilalcaliskan/varnish-operator-ansible
-  newTag: 1.0.4
+  newTag: 1.0.6

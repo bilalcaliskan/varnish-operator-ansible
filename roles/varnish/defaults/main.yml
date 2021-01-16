@@ -1,6 +1,6 @@
 ---
 
-install_varnish: true
+state: present
 purging_enabled: true
 banning_enabled: true
 

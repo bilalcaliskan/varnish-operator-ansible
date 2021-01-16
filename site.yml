@@ -1,0 +1,10 @@
+---
+
+- name: Local debug play
+  hosts: localhost
+  roles:
+    - varnish
+  vars:
+    state: absent
+    ansible_operator_meta:
+      namespace: varnish-operator-ansible-system
